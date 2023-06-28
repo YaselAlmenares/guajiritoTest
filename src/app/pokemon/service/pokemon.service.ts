@@ -39,7 +39,12 @@ export class PokemonService {
     );
   }
 
-  public GetPokemonByUrl(url: string):Observable<IPokemon> {
+  /**
+   *
+   * @param url Obtener detalles del Pokemon por su URL.
+   * @returns
+   */
+  private GetPokemonByUrl(url: string):Observable<IPokemon> {
     return this.http.get<IPokemon>(url).pipe(
       /** Adicionar la URL a la respuesta para usarla en este mismo MEtodo para el detalle. */
       map(pok=> ({
@@ -48,14 +53,16 @@ export class PokemonService {
       })));
   }
 
+  /**
+   * Obtener detalles del Pokemos por su nombre
+   * @param filterName
+   * @returns
+   */
   public GetPokemonByName(filterName:string):Observable<IPokemon>{
     return this.http.get<IPokemon>(`${this._urlbase}/${filterName}`).pipe();
   }
   handleError(error: any): any {
     throw new Error('Method not implemented.');
   }
-
-  // GetPokemon
-
 
 }

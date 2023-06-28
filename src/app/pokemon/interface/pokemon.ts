@@ -1,9 +1,14 @@
-
+/**
+ * Interfaz que define la lista de Pokemons enviadas a los compoennetes
+ */
 export interface IPokemonList {
   count:number;
   data:IPokemon[];
 }
 
+/**
+ * Interfaz que define un Pokemon
+ */
 export interface IPokemon{
     id:number;
     name:string;
@@ -42,6 +47,9 @@ interface Types {
     }
 }
 
+/**
+ * Interfaz que define la respuesta de API con la lista de Pokemons
+ */
 export interface IRowPokemonList {
     count:number,
     next?:string,
@@ -49,6 +57,9 @@ export interface IRowPokemonList {
     results:IMinipokemon[]
 }
 
+/**
+ * Interfaz que define los datos de un Pokemon iniciales que vienen de API
+ */
 export interface IMinipokemon{
     name:string,
     url:string

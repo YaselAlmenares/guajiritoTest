@@ -14,12 +14,11 @@ import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.comp
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PokemonListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['image', 'name', 'tipo', 'detalle'];
   dataSource!: MatTableDataSource<IPokemon>;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   /**
    * en cso de false filtrara en la tabla
@@ -48,6 +47,9 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.GetPokemonsList();
   }
 
+  /**
+   * Obtener la lista de Pokemos
+   */
   GetPokemonsList() {
     this.isLoading$.next(true);
     this.subscription = this.pokemonService.GetPokemonsList(this.pageData.pageIndex * this.pageData.pageSize, this.pageData.pageSize).pipe(
@@ -61,12 +63,11 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
     ).subscribe();
   }
 
-
-  ngAfterViewInit() {
-
-  }
-
-
+  /**
+   * Aplicar filtro por nombre  al tabla o buscar por nombre en la API
+   * @param event
+   * @returns
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     if(!filterValue){
@@ -91,22 +92,30 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Quedaria hacer algun trabajo para despues de cabiar el origen rehaga la busqueda en caso de que el filtro tenga valor
+   * //TODO Quedaria hacer algun trabajo para despues de cambiar el origen rehaga la busqueda en caso de que el filtro tenga valor.
+   *
+   * Para alternar la busqueda entre los datos de la tabla o buscar en la API.
    */
   CambiarOrigenBusqueda() {
     this.origenBusqueda = !this.origenBusqueda;
   }
 
+  /**
+   * Funcion usada desde al MAtPaginator (buscar resultados paginados)
+   * @param $event evento del MAtPaginator
+   */
   pageEvent($event: PageEvent) {
     console.log($event)
     this.pageData = $event;
     this.GetPokemonsList();
   }
 
+  /**
+   * Funcion usada para ver el detalle de los Pokemons
+   * @param name del pokemon del cual queremos mostrar el detalle
+   */
   PokemonDetail(name: string) {
     const dialogConfig = new MatDialogConfig();
-    // dialogConfig.height = '50%';
-    // dialogConfig.width = '50%';
     dialogConfig.data = { name };
     this.dialog.open(PokemonDetailsComponent, dialogConfig)
       .afterClosed()
