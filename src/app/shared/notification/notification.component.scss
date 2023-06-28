@@ -1,0 +1,30 @@
+
+.container {
+  width: 100%;
+  height: calc(100% - 0px);
+}
+.icon{
+font-size: 32px;
+}
+.with-icon {
+display: flex;
+align-items: center;
+}
+span {
+font-size: 14px;
+font-family: 'Lato';
+}
+
+::ng-deep mat-snack-bar-container.notificacion-success>div {
+  color:#000!important;
+  background-color:#D4EDDA!important;
+  border-color:#7AB387;
+  color: black !important;
+}
+
+::ng-deep mat-snack-bar-container.notificacion-error>div {
+    background-color: rgba(153, 50, 50, 0.7) !important;
+    color: white !important;
+    border-color: #d6e9c6;
+    text-align: center;
+}

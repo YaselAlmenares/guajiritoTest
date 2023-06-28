@@ -3,23 +3,35 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class TokenErrorHandlerInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private notificationServices:NotificationService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     //console.log(request);
     return next.handle(request).pipe(
       catchError(error=>{
-        //manejar errores
+        this.HandleGlobalError(error);
         throw error;
       })
     );
+  }
+
+  private HandleGlobalError(error:HttpErrorResponse):void{
+
+    switch(error.status){
+      case 0:
+        this.notificationServices.mostrarNotificacion("Error desconocido",true,10000);
+      break;
+      //Adicionar errores segun BE
+    }
   }
 
 }

@@ -5,17 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenErrorHandlerInterceptor } from './peliculas/servicios/token-error-handler.interceptor';
+import { TokenErrorHandlerInterceptor } from './shared/token-error-handler.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationComponent } from './shared/notification/notification.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [
     {
